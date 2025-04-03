@@ -1,0 +1,84 @@
+
+1-EJERCICIO DE DISTANCIA EUCLIDEA
+
+import math
+
+def distancia_euclidea(vec1, vec2):
+    """Calcula la distancia euclídea entre dos vectores."""
+    return math.sqrt(sum((x - y) ** 2 for x, y in zip(vec1, vec2)))
+
+Ejemplo de uso
+vector1 = [1, 2, 3]
+vector2 = [4, 5, 6]
+distancia = distancia_euclidea(vector1, vector2)
+print(f"Distancia Euclídea: {distancia}")
+
+
+2- DISTANCIA EUCLIDEA NORMALIZADA
+import math
+
+def distancia_euclidea_normalizada(vec1, vec2):
+    """Calcula la distancia euclídea normalizada."""
+    distancia = math.sqrt(sum((x - y) ** 2 for x, y in zip(vec1, vec2)))
+    max_valor = max(max(vec1), max(vec2))
+    return distancia / max_valor if max_valor != 0 else 0
+
+Ejemplo de uso
+vector1 = [1, 2, 3]
+vector2 = [4, 5, 6]
+distancia_norm = distancia_euclidea_normalizada(vector1, vector2)
+print(f"Distancia Euclídea Normalizada: {distancia_norm}")
+
+
+3-DISTANCIA CHEBYCHEV
+def distancia_chebychev(vec1, vec2):
+    """Calcula la distancia de Chebychev (máxima diferencia)."""
+    return max(abs(x - y) for x, y in zip(vec1, vec2))
+
+Ejemplo de uso
+vector1 = [1, 2, 3]
+vector2 = [4, 5, 6]
+distancia_cheb = distancia_chebychev(vector1, vector2)
+print(f"Distancia de Chebychev: {distancia_cheb}")
+
+4-DISTANCIA MANHATTAN
+def distancia_manhattan(vec1, vec2):
+    """Calcula la distancia de Manhattan (suma de diferencias absolutas)."""
+    return sum(abs(x - y) for x, y in zip(vec1, vec2))
+
+Ejemplo de uso
+vector1 = [1, 2, 3]
+vector2 = [4, 5, 6]
+distancia_man = distancia_manhattan(vector1, vector2)
+print(f"Distancia de Manhattan: {distancia_man}")
+
+5-CLASE CON REFLEXIÓN 
+class ComparadorDistancias:
+    def __init__(self):
+        self.distancias = {
+            'euclidea': self.distancia_euclidea,
+            'euclidea_normalizada': self.distancia_euclidea_normalizada,
+            'chebychev': self.distancia_chebychev,
+            'manhattan': self.distancia_manhattan
+        }
+    
+    def calcular_distancia(self, nombre_distancia, vec1, vec2):
+        """Usa reflexión para llamar a la función correcta."""
+        if nombre_distancia not in self.distancias:
+            raise ValueError(f"Distancia no válida. Opciones: {list(self.distancias.keys())}")
+        return self.distancias[nombre_distancia](vec1, vec2)
+    
+    # Las funciones de distancia se definen igual que en los ejercicios anteriores
+    def distancia_euclidea(self, vec1, vec2): ...
+    def distancia_euclidea_normalizada(self, vec1, vec2): ...
+    def distancia_chebychev(self, vec1, vec2): ...
+    def distancia_manhattan(self, vec1, vec2): ...
+
+Ejemplo de uso
+comparador = ComparadorDistancias()
+vector1 = [1, 2, 3]
+vector2 = [4, 5, 6]
+
+print("Usando reflexión para calcular distancias:")
+print(f"Euclídea: {comparador.calcular_distancia('euclidea', vector1, vector2)}")
+print(f"Manhattan: {comparador.calcular_distancia('manhattan', vector1, vector2)}")
